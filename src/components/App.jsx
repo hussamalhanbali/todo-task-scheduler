@@ -6,17 +6,17 @@ import './App.css';
 function App() {
 	const [todo, setTodo] = useState('');
 	const [todos, setTodos] = useState([]);
-	// const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(true);
 
-	// useEffect(() => {
-	// 	fetch('https://jsonplaceholder.typicode.com/todos')
-	// 		.then((res) => res.json())
-	// 		.then((data) => {
-	// 			const uncompletedtodos = data.filter((todo) => !todo.complete).map((todo) => todo.title);
-	// 			setTodos(uncompletedtodos);
-	// 			setLoading(false);
-	// 		});
-	// }, []);
+	useEffect(() => {
+		fetch('https://jsonplaceholder.typicode.com/todos')
+			.then((res) => res.json())
+			.then((data) => {
+				const uncompletedtodos = data.filter((todo) => !todo.complete).map((todo) => todo.title);
+				setTodos(uncompletedtodos);
+				setLoading(false);
+			});
+	}, []);
 
 	const addTodo = () => {
 		console.log(todos);
@@ -30,14 +30,14 @@ function App() {
 		setTodos(uncompletedTodos);
 	};
 
-	// if (loading) {
-	// 	return <div>loading</div>;
-	// }
+	if (loading) {
+		return <div>loading</div>;
+	}
 	return (
 		<div className="App">
 			<img className="logo" src="/logo-React.webp" alt="techover" />
 			<Input setTodo={setTodo} todo={todo} addTodo={addTodo} />
-			{/* {loading ? <h1>loading</h1> : <List todos={todos} complete={complete} />} */}
+			{loading ? <h1>loading</h1> : <List todos={todos} complete={complete} />}
 			<List todos={todos} complete={complete} />
 		</div>
 	);
